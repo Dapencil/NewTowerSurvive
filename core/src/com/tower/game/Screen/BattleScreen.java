@@ -294,14 +294,6 @@ public class BattleScreen implements Screen {
                 swordButton.setTouchable(Touchable.disabled);
                 shieldButton.setTouchable(Touchable.disabled);
                 auraButton.setTouchable(Touchable.disabled);
-                if(MathUtils.randomBoolean(opponent.chance)){
-                    if(player.potionAmt==0){
-                        potionUse.setTouchable(Touchable.disabled);
-                    }else{
-                        potionUse.setTouchable(Touchable.enabled);
-                    }
-                    overlay.setVisible(true);
-                }else{
                     Timer timer = new Timer();
                     Timer.Task task = new Timer.Task() {
                         @Override
@@ -322,21 +314,47 @@ public class BattleScreen implements Screen {
                             game.setScreen(game.deathScreen);
                         }
                     };
+                    Timer.Task testtask = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            opponent.state = EntityState.ENTITY_REALDEAD;
+                            if(opponent.type==0){
+                                player.resetCoor();
+                                game.setScreen(game.winScreen);
+                            }else{
+                                game.prevScreen.map.entityArray[1]--;
+                                game.prevScreen.map.tiles[opponent.y][opponent.x].entity = null;
+                                game.setScreen(game.prevScreen);
+                            }
+                        }
+                    };
                     opponent.state = EntityState.ENTITY_ATTACK;
                     player.state = EntityState.ENTITY_HITED;
-                    player.getHit(opponent.atk);
+                    player.getHit(opponent.atk/2);
+                    if(MathUtils.randomBoolean(0.5f)){
+                        opponent.getHit(player.atk/2);
+                        labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
+                        player.hp += player.maxHp/20;
+                        if(player.hp> player.maxHp) player.hp= player.maxHp;
+                    }
                     timer.scheduleTask(task,0.73f);
                     labelPlayerHp.setText(player.hp+"/"+ player.maxHp);
+                    if(opponent.isDead) {
+                        player.getItem();
+                        player.updateStat(opponent.atk);
+                        game.prevScreen.potionNum.setText("x "+player.potionAmt);
+                        game.prevScreen.foodNum.setText("x "+player.foodAmt);
+                        opponent.state = EntityState.ENTITY_DEAD;
+                        timer.scheduleTask(testtask,0.9f);
+                    }
                     if(player.isDead){
                         player.state = EntityState.ENTITY_DEAD;
                         timer.scheduleTask(deadAni,0.8f);
                         timer.scheduleTask(screenChange,2f);
                     }
-                    swordButton.setTouchable(Touchable.enabled);
-                    shieldButton.setTouchable(Touchable.enabled);
-                    auraButton.setTouchable(Touchable.enabled);
-                }
-
+                swordButton.setTouchable(Touchable.enabled);
+                shieldButton.setTouchable(Touchable.enabled);
+                auraButton.setTouchable(Touchable.enabled);
             }
         });
 
@@ -346,13 +364,54 @@ public class BattleScreen implements Screen {
                 swordButton.setTouchable(Touchable.disabled);
                 shieldButton.setTouchable(Touchable.disabled);
                 auraButton.setTouchable(Touchable.disabled);
-                if(MathUtils.randomBoolean(opponent.chance)){
-                    if(player.potionAmt==0){
-                        potionUse.setTouchable(Touchable.disabled);
-                    }else{
-                        potionUse.setTouchable(Touchable.enabled);
+                float chance = opponent.chance==0? 0:0.35f;
+                if(MathUtils.randomBoolean(chance)){
+                    Timer timer = new Timer();
+                    Timer.Task taskAttack = new Timer.Task(){
+                        @Override
+                        public void run() {
+                            if(opponent.isDead){
+                                opponent.state = EntityState.ENTITY_DEAD;
+                            }else{
+                                opponent.state = EntityState.ENTITY_NONE;
+                            }
+                            player.state = EntityState.ENTITY_NONE;
+                        }
+                    } ;
+                    Timer.Task taskRealDead = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            opponent.state = EntityState.ENTITY_REALDEAD;
+                        }
+                    };
+                    Timer.Task testtask = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            opponent.state = EntityState.ENTITY_REALDEAD;
+                            if(opponent.type==0){
+                                player.resetCoor();
+                                game.setScreen(game.winScreen);
+                            }else{
+                                game.prevScreen.map.entityArray[1]--;
+                                game.prevScreen.map.tiles[opponent.y][opponent.x].entity = null;
+                                game.setScreen(game.prevScreen);
+                            }
+                        }
+                    };
+                    //
+                    opponent.state = EntityState.ENTITY_HITED;
+                    player.state = EntityState.ENTITY_ATTACK;
+                    opponent.getHit(player.atk*2);
+                    timer.scheduleTask(taskAttack,0.72f);
+                    labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
+                    if(opponent.isDead) {
+                        player.getItem();
+                        player.updateStat(opponent.atk);
+                        game.prevScreen.potionNum.setText("x "+player.potionAmt);
+                        game.prevScreen.foodNum.setText("x "+player.foodAmt);
+                        opponent.state = EntityState.ENTITY_DEAD;
+                        timer.scheduleTask(testtask,0.9f);
                     }
-                    overlay.setVisible(true);
                 }else{
                     Timer timer = new Timer();
                     Timer.Task task = new Timer.Task() {
@@ -385,10 +444,10 @@ public class BattleScreen implements Screen {
                         timer.scheduleTask(screenChange,2f);
 
                     }
-                    swordButton.setTouchable(Touchable.enabled);
-                    shieldButton.setTouchable(Touchable.enabled);
-                    auraButton.setTouchable(Touchable.enabled);
                 }
+                swordButton.setTouchable(Touchable.enabled);
+                shieldButton.setTouchable(Touchable.enabled);
+                auraButton.setTouchable(Touchable.enabled);
 
             }
         });

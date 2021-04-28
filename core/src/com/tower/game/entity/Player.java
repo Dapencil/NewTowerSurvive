@@ -17,8 +17,8 @@ public class Player extends Entity {
         sprite = new Sprite(rm.playerIcon);
         x = 4;
         y = 0;
-        stamina = 15;
-        maxSta = 15;
+        stamina = 1500;
+        maxSta = 1500;
         atk = 5;
         maxHp = hp = atk+15;
         armor = maxHp/7;
@@ -30,10 +30,10 @@ public class Player extends Entity {
 
     public void updateStat(int opponentAtk){
         int prevMaxHp = maxHp;
-        this.atk += opponentAtk/2;
+        this.atk += Math.ceil(opponentAtk/10)==0? 1:Math.ceil(opponentAtk/10);
         maxHp = atk+15;
         hp += maxHp-prevMaxHp;
-        armor = maxHp/7;
+        armor = (int)Math.ceil(maxHp/4);
     }
 
     public void heal(){

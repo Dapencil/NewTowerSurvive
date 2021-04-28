@@ -29,6 +29,7 @@ public class BattleScreen implements Screen {
     public Entity opponent;
     public Stage stage;
     public float elapsedTime;
+    public int opponentRealAtk;
 
     public BattleScreen(final TowerSur game,Entity opponent){
         this.game = game;
@@ -223,8 +224,10 @@ public class BattleScreen implements Screen {
                 timer.scheduleTask(taskAttack,0.72f);
                 labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
                 if(opponent.isDead) {
+                    if(opponent.type!=0){
+                        player.updateStat(opponent.atk);
+                    }
                     player.getItem();
-                    player.updateStat(opponent.atk);
                     game.prevScreen.potionNum.setText("x "+player.potionAmt);
                     game.prevScreen.foodNum.setText("x "+player.foodAmt);
                     opponent.state = EntityState.ENTITY_DEAD;
@@ -330,18 +333,20 @@ public class BattleScreen implements Screen {
                     };
                     opponent.state = EntityState.ENTITY_ATTACK;
                     player.state = EntityState.ENTITY_HITED;
-                    player.getHit(opponent.atk/2);
+                    player.getHit((int)Math.ceil(opponent.atk*0.75));
                     if(MathUtils.randomBoolean(0.5f)){
-                        opponent.getHit(player.atk/2);
+                        opponent.getHit(player.atk/10);
+                        player.heal();
+                        potionAmt.setText("x "+player.potionAmt);
                         labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
-                        player.hp += player.maxHp/20;
-                        if(player.hp> player.maxHp) player.hp= player.maxHp;
                     }
                     timer.scheduleTask(task,0.73f);
                     labelPlayerHp.setText(player.hp+"/"+ player.maxHp);
                     if(opponent.isDead) {
                         player.getItem();
-                        player.updateStat(opponent.atk);
+                        if(opponent.type!=0){
+                            player.updateStat(opponent.atk);
+                        }
                         game.prevScreen.potionNum.setText("x "+player.potionAmt);
                         game.prevScreen.foodNum.setText("x "+player.foodAmt);
                         opponent.state = EntityState.ENTITY_DEAD;
@@ -406,7 +411,9 @@ public class BattleScreen implements Screen {
                     labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
                     if(opponent.isDead) {
                         player.getItem();
-                        player.updateStat(opponent.atk);
+                        if(opponent.type!=0){
+                            player.updateStat(opponent.atk);
+                        }
                         game.prevScreen.potionNum.setText("x "+player.potionAmt);
                         game.prevScreen.foodNum.setText("x "+player.foodAmt);
                         opponent.state = EntityState.ENTITY_DEAD;

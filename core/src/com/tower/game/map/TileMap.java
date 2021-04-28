@@ -147,9 +147,10 @@ public class TileMap {
         for(int i =1;i<enemyAmt;i++){
             int toAss = random.nextInt(4) + player.atk;
             enemyPow[i] = toAss;
-            total += toAss/2;
+            total += Math.ceil(toAss/10)==0? 1:Math.ceil(toAss/10);
         }
         enemyPow[0] = total+player.atk+random.nextInt(4);
+//        enemyPow[0] -= Math.ceil(enemyPow[0]*0.3);
     }
 
     /**

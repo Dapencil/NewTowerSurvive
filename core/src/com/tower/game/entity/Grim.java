@@ -22,7 +22,7 @@ public class Grim extends Entity{
     @Override
     public void setStat(int atk){
         this.atk = atk;
-        int toAss = (int)(atk*1.45f);
+        int toAss = (int)(atk*2f);
         hp = maxHp = toAss;
         armor = maxHp/9;
     }
@@ -72,5 +72,14 @@ public class Grim extends Entity{
                 break;
         }
 
+    }
+
+    @Override
+    public void getHit(int damage) {
+        this.hp -= (damage-(armor-Math.ceil(armor*0.25)));
+        if(hp<=0) {
+            hp = 0;
+            isDead = true;
+        }
     }
 }

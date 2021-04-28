@@ -1,0 +1,324 @@
+
+gameTexture.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+atk-icon
+  rotate: false
+  xy: 744, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+aura
+  rotate: false
+  xy: 618, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+battle-screen-bg
+  rotate: false
+  xy: 2, 539
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+blueTile
+  rotate: false
+  xy: 710, 75
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+bonfire-icon
+  rotate: false
+  xy: 1558, 627
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+boss-attack
+  rotate: false
+  xy: 1331, 775
+  size: 375, 80
+  orig: 375, 80
+  offset: 0, 0
+  index: -1
+boss-dead
+  rotate: false
+  xy: 804, 939
+  size: 1125, 80
+  orig: 1125, 80
+  offset: 0, 0
+  index: -1
+boss-hited
+  rotate: false
+  xy: 804, 693
+  size: 525, 80
+  orig: 525, 80
+  offset: 0, 0
+  index: -1
+boss-icon
+  rotate: false
+  xy: 1774, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+boss-stay
+  rotate: false
+  xy: 1708, 775
+  size: 150, 80
+  orig: 150, 80
+  offset: 0, 0
+  index: -1
+bright-four
+  rotate: false
+  xy: 1462, 463
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bright-one
+  rotate: false
+  xy: 710, 341
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bright-three
+  rotate: false
+  xy: 710, 407
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+bright-two
+  rotate: false
+  xy: 710, 143
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+button
+  rotate: false
+  xy: 25, 2
+  size: 21, 21
+  split: 10, 10, 10, 10
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+d-b-button
+  rotate: false
+  xy: 776, 516
+  size: 21, 21
+  split: 5, 5, 5, 5
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+dark-four
+  rotate: false
+  xy: 1931, 955
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dark-one
+  rotate: false
+  xy: 710, 209
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dark-three
+  rotate: false
+  xy: 1708, 709
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dark-two
+  rotate: false
+  xy: 1396, 463
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+darkTile
+  rotate: false
+  xy: 516, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+food-icon
+  rotate: false
+  xy: 710, 275
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+greenTile
+  rotate: false
+  xy: 584, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+hp-icon
+  rotate: false
+  xy: 686, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+main-screen-bg
+  rotate: false
+  xy: 1106, 449
+  size: 288, 160
+  orig: 288, 160
+  offset: 0, 0
+  index: -1
+p2p
+  rotate: false
+  xy: 2, 25
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+player-attack
+  rotate: false
+  xy: 1331, 693
+  size: 375, 80
+  orig: 375, 80
+  offset: 0, 0
+  index: -1
+player-dead
+  rotate: false
+  xy: 804, 775
+  size: 525, 80
+  orig: 525, 80
+  offset: 0, 0
+  index: -1
+player-hited
+  rotate: false
+  xy: 1256, 611
+  size: 300, 80
+  orig: 300, 80
+  offset: 0, 0
+  index: -1
+player-icon
+  rotate: false
+  xy: 1860, 791
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+player-stay
+  rotate: false
+  xy: 1781, 857
+  size: 150, 80
+  orig: 150, 80
+  offset: 0, 0
+  index: -1
+potion-icon
+  rotate: false
+  xy: 1624, 627
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+redTile
+  rotate: false
+  xy: 1997, 953
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 516, 57
+  size: 192, 480
+  orig: 192, 480
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 652, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+shield-icon
+  rotate: false
+  xy: 550, 23
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+skel-attack
+  rotate: false
+  xy: 804, 611
+  size: 450, 80
+  orig: 450, 80
+  offset: 0, 0
+  index: -1
+skel-dead
+  rotate: false
+  xy: 804, 857
+  size: 975, 80
+  orig: 975, 80
+  offset: 0, 0
+  index: -1
+skel-hited
+  rotate: false
+  xy: 804, 529
+  size: 300, 80
+  orig: 300, 80
+  offset: 0, 0
+  index: -1
+skel-icon
+  rotate: false
+  xy: 710, 473
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+skel-stay
+  rotate: false
+  xy: 1396, 529
+  size: 150, 80
+  orig: 150, 80
+  offset: 0, 0
+  index: -1
+sleep-icon
+  rotate: false
+  xy: 710, 109
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+stamina-icon
+  rotate: false
+  xy: 1997, 987
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 744, 75
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+u-b-button
+  rotate: false
+  xy: 2, 2
+  size: 21, 21
+  split: 5, 5, 5, 5
+  orig: 21, 21
+  offset: 0, 0
+  index: -1

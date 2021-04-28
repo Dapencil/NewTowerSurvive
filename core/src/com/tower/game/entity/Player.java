@@ -17,8 +17,8 @@ public class Player extends Entity {
         sprite = new Sprite(rm.playerIcon);
         x = 4;
         y = 0;
-        stamina = 1500;
-        maxSta = 1500;
+        stamina = 15;
+        maxSta = 15;
         atk = 5;
         maxHp = hp = atk+15;
         armor = maxHp/7;

@@ -76,7 +76,10 @@ public class Grim extends Entity{
 
     @Override
     public void getHit(int damage) {
-        this.hp -= (damage-(armor-Math.ceil(armor*0.25)));
+        if(damage==0 || damage<=Math.ceil(armor*0.75)){
+            return;
+        }
+        this.hp -= (damage-Math.ceil(armor*0.75));
         if(hp<=0) {
             hp = 0;
             isDead = true;

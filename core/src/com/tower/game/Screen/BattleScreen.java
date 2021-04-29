@@ -29,7 +29,6 @@ public class BattleScreen implements Screen {
     public Entity opponent;
     public Stage stage;
     public float elapsedTime;
-    public int opponentRealAtk;
 
     public BattleScreen(final TowerSur game,Entity opponent){
         this.game = game;
@@ -168,6 +167,7 @@ public class BattleScreen implements Screen {
 
 
         //add listener to button
+        //<editor-fold desc="OverlayButtonListener">
         potionUse.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -217,6 +217,14 @@ public class BattleScreen implements Screen {
                         }
                     }
                 };
+                Timer.Task buttonOn = new Timer.Task() {
+                    @Override
+                    public void run() {
+                        swordButton.setTouchable(Touchable.enabled);
+                        shieldButton.setTouchable(Touchable.enabled);
+                        auraButton.setTouchable(Touchable.enabled);
+                    }
+                };
                 //
                 opponent.state = EntityState.ENTITY_HITED;
                 player.state = EntityState.ENTITY_ATTACK;
@@ -233,12 +241,12 @@ public class BattleScreen implements Screen {
                     opponent.state = EntityState.ENTITY_DEAD;
                     timer.scheduleTask(testtask,0.9f);
                 }
-                swordButton.setTouchable(Touchable.enabled);
-                shieldButton.setTouchable(Touchable.enabled);
-                auraButton.setTouchable(Touchable.enabled);
+                timer.scheduleTask(buttonOn,1f);
             }
         });
+        //</editor-fold>
 
+        //<editor-fold desc="SwordButtonListener">
         swordButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -267,6 +275,14 @@ public class BattleScreen implements Screen {
                             player.state = EntityState.ENTITY_REALDEAD;
                         }
                     };
+                    Timer.Task buttonOn = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            swordButton.setTouchable(Touchable.enabled);
+                            shieldButton.setTouchable(Touchable.enabled);
+                            auraButton.setTouchable(Touchable.enabled);
+                        }
+                    };
                     Timer.Task screenChange = new Timer.Task() {
                         @Override
                         public void run() {
@@ -283,14 +299,14 @@ public class BattleScreen implements Screen {
                         timer.scheduleTask(deadAni,0.8f);
                         timer.scheduleTask(screenChange,2f);
                     }
-                    swordButton.setTouchable(Touchable.enabled);
-                    shieldButton.setTouchable(Touchable.enabled);
-                    auraButton.setTouchable(Touchable.enabled);
+                    timer.scheduleTask(buttonOn,1f);
                 }
 
             }
         });
+        //</editor-fold>
 
+        //<editor-fold desc="ShieldButtonListener">
         shieldButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -331,18 +347,26 @@ public class BattleScreen implements Screen {
                             }
                         }
                     };
+                    Timer.Task buttonOn = new Timer.Task() {
+                        @Override
+                        public void run() {
+                            swordButton.setTouchable(Touchable.enabled);
+                            shieldButton.setTouchable(Touchable.enabled);
+                            auraButton.setTouchable(Touchable.enabled);
+                        }
+                    };
                     opponent.state = EntityState.ENTITY_ATTACK;
                     player.state = EntityState.ENTITY_HITED;
                     player.getHit((int)Math.ceil(opponent.atk*0.75));
-                    if(MathUtils.randomBoolean(0.5f)){
-                        opponent.getHit(player.atk/10);
-                        player.heal();
-                        potionAmt.setText("x "+player.potionAmt);
-                        labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
+                    if(!player.isDead && MathUtils.randomBoolean(0.5f)) {
+                            opponent.getHit(player.atk/10);
+                            player.heal();
+                            potionAmt.setText("x "+player.potionAmt);
+                            labelOpponentHp.setText(opponent.hp+"/"+opponent.maxHp);
                     }
                     timer.scheduleTask(task,0.73f);
                     labelPlayerHp.setText(player.hp+"/"+ player.maxHp);
-                    if(opponent.isDead) {
+                    if(opponent.isDead){
                         player.getItem();
                         if(opponent.type!=0){
                             player.updateStat(opponent.atk);
@@ -352,26 +376,35 @@ public class BattleScreen implements Screen {
                         opponent.state = EntityState.ENTITY_DEAD;
                         timer.scheduleTask(testtask,0.9f);
                     }
-                    if(player.isDead){
+                    if(player.isDead) {
                         player.state = EntityState.ENTITY_DEAD;
-                        timer.scheduleTask(deadAni,0.8f);
-                        timer.scheduleTask(screenChange,2f);
+                        timer.scheduleTask(deadAni, 0.8f);
+                        timer.scheduleTask(screenChange, 2f);
                     }
-                swordButton.setTouchable(Touchable.enabled);
-                shieldButton.setTouchable(Touchable.enabled);
-                auraButton.setTouchable(Touchable.enabled);
+                timer.scheduleTask(buttonOn,1f);
+
             }
         });
+        //</editor-fold>
 
+        //<editor-fold desc="AuraButtonListener">
         auraButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 swordButton.setTouchable(Touchable.disabled);
                 shieldButton.setTouchable(Touchable.disabled);
                 auraButton.setTouchable(Touchable.disabled);
+                Timer timer = new Timer();
                 float chance = opponent.chance==0? 0:0.35f;
+                Timer.Task buttonOn = new Timer.Task() {
+                    @Override
+                    public void run() {
+                        swordButton.setTouchable(Touchable.enabled);
+                        shieldButton.setTouchable(Touchable.enabled);
+                        auraButton.setTouchable(Touchable.enabled);
+                    }
+                };
                 if(MathUtils.randomBoolean(chance)){
-                    Timer timer = new Timer();
                     Timer.Task taskAttack = new Timer.Task(){
                         @Override
                         public void run() {
@@ -420,7 +453,6 @@ public class BattleScreen implements Screen {
                         timer.scheduleTask(testtask,0.9f);
                     }
                 }else{
-                    Timer timer = new Timer();
                     Timer.Task task = new Timer.Task() {
                         @Override
                         public void run() {
@@ -452,12 +484,10 @@ public class BattleScreen implements Screen {
 
                     }
                 }
-                swordButton.setTouchable(Touchable.enabled);
-                shieldButton.setTouchable(Touchable.enabled);
-                auraButton.setTouchable(Touchable.enabled);
-
+                timer.scheduleTask(buttonOn,1f);
             }
         });
+        //</editor-fold>
 
         stage.addActor(background);
         stage.addActor(overlay);

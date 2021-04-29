@@ -40,7 +40,9 @@ public class DeathScreen implements Screen {
 
     @Override
     public void show() {
-
+        game.player = new Player(game.rm);
+        TileMap.floorNum = 0;
+        game.prevScreen = new TowerScreen(game);
     }
 
     @Override
@@ -52,9 +54,6 @@ public class DeathScreen implements Screen {
         stage.draw();
         batch.end();
         if(Gdx.input.isTouched()){
-            game.player = new Player(game.rm);
-            TileMap.floorNum = 0;
-            game.prevScreen = new TowerScreen(game);
             game.setScreen(game.prevScreen);
         }
     }

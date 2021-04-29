@@ -30,10 +30,7 @@ public abstract class Entity {
     public void setStat(int atk){}
 
     public void getHit(int damage){
-        if(damage==0){
-            return;
-        }
-        if(damage<=armor){
+        if(damage==0 || damage<=armor){
             return;
         }
         this.hp -= damage-armor;

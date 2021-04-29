@@ -41,6 +41,7 @@ public class WinScreen implements Screen {
     @Override
     public void show() {
         player.resetCoor();
+        game.prevScreen = new TowerScreen(game);
     }
 
     @Override
@@ -52,7 +53,6 @@ public class WinScreen implements Screen {
         stage.draw();
         batch.end();
         if(Gdx.input.isTouched()){
-            game.prevScreen = new TowerScreen(game);
             game.setScreen(game.prevScreen);
         }
     }

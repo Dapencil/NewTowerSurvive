@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tower.game.entity.Player;
 import com.tower.game.utill.ResourceManager;
@@ -19,12 +20,14 @@ public class WinScreen implements Screen {
     public ResourceManager rm;
     public Stage stage;
     public Label win,tap;
+    public boolean isClicked;
 
     public WinScreen(final TowerSur game){
         this.game = game;
         this.rm = game.rm;
         batch = game.batch;
         this.player = game.player;
+        isClicked = false;
 
         stage = new Stage(new ScreenViewport());
         Label.LabelStyle black = new Label.LabelStyle(rm.skin.getFont("default-font"),rm.skin.getColor("black") );
@@ -42,6 +45,7 @@ public class WinScreen implements Screen {
     public void show() {
         player.resetCoor();
         game.prevScreen = new TowerScreen(game);
+
     }
 
     @Override
@@ -52,7 +56,7 @@ public class WinScreen implements Screen {
         batch.begin();
         stage.draw();
         batch.end();
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.isTouched()) {
             game.setScreen(game.prevScreen);
         }
     }

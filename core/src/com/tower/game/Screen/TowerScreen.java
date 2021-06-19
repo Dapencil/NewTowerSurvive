@@ -100,13 +100,12 @@ public class TowerScreen implements Screen {
         sleepButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.winScreen);
-//                player.sleep();
-//                health.setText("HP: "+player.hp+"/"+player.maxHp);
-//                player.labelStamina.setText("Stamina: "+player.stamina+"/"+player.maxSta);
-//                if(player.isDead){
-//                    game.setScreen(game.deathScreen);
-//                }
+                player.sleep();
+                health.setText("HP: "+player.hp+"/"+player.maxHp);
+                player.labelStamina.setText("Stamina: "+player.stamina+"/"+player.maxSta);
+                if(player.isDead){
+                    game.setScreen(game.deathScreen);
+                }
             }
         });
 

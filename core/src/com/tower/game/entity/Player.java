@@ -23,7 +23,7 @@ public class Player extends Entity {
         maxHp = hp = atk+15;
         armor = maxHp/7;
         potionAmt = 2;
-        foodAmt = 0;
+        foodAmt = 100;
         state = EntityState.ENTITY_NONE;
         animationInit(rm);
     }

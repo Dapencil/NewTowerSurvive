@@ -10,6 +10,7 @@ import com.tower.game.TowerSur;
 import com.tower.game.entity.Bonfire;
 import com.tower.game.entity.Grim;
 import com.tower.game.entity.Skeleton;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TileMap {
@@ -158,15 +159,30 @@ public class TileMap {
      */
     public void placeEnemy(){
         Random random = new Random();
+        ArrayList<Point> array = new ArrayList<>();
         int posY = 0;
         int posX = 0;
         int cntBoss = 1;
         int cntEne = enemyAmt-1;
         int cntBonfire = bonfireAmt;
-        while(cntEne>0){
-            posY = random.nextInt(mapHeight);
-            posX = random.nextInt(mapWidth);
+        //init array
+        for(int i= 0;i<mapWidth;i++){
+            for(int j = 0;j<mapHeight;j++){
+                array.add(new Point(i,j));
+            }
+        }
+        while(cntEne>0 && array.size() !=0){
+            int index = random.nextInt(array.size());
+            int toRemove = 0;
+            posX = (int)array.get(index).getX();
+            posY = (int)array.get(index).getY();
             if(tiles[posY][posX].isNearEntity || !(tiles[posY][posX].isDark) || tiles[posY][posX].isContainEntity() ){
+                for(Point point : array){
+                    if((int)point.getX() == posX && (int)point.getY() == posY){
+                        toRemove = array.indexOf(point);
+                    }
+                }
+                array.remove(toRemove);
                 continue;
             }else{
                 tiles[posY][posX].entity = new Skeleton(posX,posY,rm);
@@ -175,10 +191,22 @@ public class TileMap {
                 cntEne--;
             }
         }
-        while(cntBonfire>0){
-            posY = random.nextInt(mapHeight);
-            posX = random.nextInt(mapWidth);
+        System.out.println("Already place skel");
+        while(cntBonfire>0 && array.size() !=0){
+            int index = random.nextInt(array.size());
+            int toRemove = 0;
+            posX = (int)array.get(index).getX();
+            posY = (int)array.get(index).getY();
             if(tiles[posY][posX].isNearEntity || !(tiles[posY][posX].isDark) || tiles[posY][posX].isContainEntity() ){
+                for(Point point : array){
+                    if((int)point.getX() == posX && (int)point.getY() == posY){
+                        toRemove = array.indexOf(point);
+                    }
+                }
+//                if(array.size()-2<0){
+//                    tiles[posY][posX].entity = new Bonfire(posX,posY,rm);
+//                }else
+                array.remove(toRemove);
                 continue;
             }else{
                 tiles[posY][posX].entity = new Bonfire(posX,posY,rm);
@@ -186,18 +214,35 @@ public class TileMap {
                 cntBonfire--;
             }
         }
-        while(cntBoss>0){
-            posY = random.nextInt(mapHeight);
-            posX = random.nextInt(mapWidth);
-            if(tiles[posY][posX].isNearEntity || !(tiles[posY][posX].isDark) || tiles[posY][posX].isContainEntity() ){
-                continue;
-            }else{
-                tiles[posY][posX].entity = new Grim(posX,posY,rm);
-                tiles[posY][posX].entity.setStat(enemyPow[0]);
-                setNearEntityTile(posX,posY);
-                cntBoss--;
-            }
+        System.out.println("Already place bonfire");
+        while(cntBoss>0 && array.size() !=0){
+                int index = random.nextInt(array.size());
+                int toRemove = 0;
+                posX = (int) array.get(index).getX();
+                posY = (int) array.get(index).getY();
+                if (tiles[posY][posX].isNearEntity || !(tiles[posY][posX].isDark) || tiles[posY][posX].isContainEntity()) {
+                    for (Point point : array) {
+                        if ((int) point.getX() == posX && (int) point.getY() == posY) {
+                            toRemove = array.indexOf(point);
+                        }
+                    }
+                    if (array.size()-2<0){
+                        tiles[posY][posX].entity = new Grim(posX, posY, rm);
+                        tiles[posY][posX].entity.setStat(enemyPow[0]);
+                        break;
+                    }
+                    else{
+                    array.remove(toRemove);
+                    continue;
+                    }
+                } else {
+                    tiles[posY][posX].entity = new Grim(posX, posY, rm);
+                    tiles[posY][posX].entity.setStat(enemyPow[0]);
+                    setNearEntityTile(posX, posY);
+                    cntBoss--;
+                }
         }
+
     }
 
     /**

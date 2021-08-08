@@ -40,7 +40,6 @@
    boolean reportFixture(long);
    float   reportRayFixture(long, float, float, float, float, float);
 }
--keep class java.awt.**;
 -keep class com.badlogic.**{
    **[] $VALUES;
     *;
